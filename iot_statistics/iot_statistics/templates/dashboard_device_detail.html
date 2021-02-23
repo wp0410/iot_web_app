@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block navbar %}
+
+<li class="nav-item active mt-2 ml-3">
+	<form class="form-inline">
+		<span>
+			<a href="{{url_for('dashb_dev_detail', device=device, ev_day=eval_day, ev_offset=-1)}}" class="btn btn-outline-dark" role="button">&lt;</a>
+			<a href="{{url_for('dashb_dev_detail', device=device, ev_day=eval_day)}}" class="btn btn-outline-dark" role="button">{{eval_day}}</a>
+			<a href="{{url_for('dashb_dev_detail', device=device, ev_day=eval_day, ev_offset=1)}}" class="btn btn-outline-dark" role="button">&gt;</a>
+		</span>
+	</form>
+</li>
+<li class="nav-item dropdown active mt-2 ml-3">
+	<a class="nav-link dropdown-toggle" href="#" id="hwDevProbe" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Device Probes
+	</a>
+	<div class="dropdown-menu" aria-labelledby="hwDevProbe">
+		<a class="dropdown-item" href="{{url_for('dashb_dev', ev_day=eval_day)}}">Tages&uuml;bersicht pro Device</a>
+		{% if device_list %}
+		<div class="dropdown-divider"></div>
+		{% endif %}
+
+		{% for device_elem in device_list %}
+		{% if device_elem.device_id == device %}
+		<a class="dropdown-item disabled" href="{{url_for('dashb_dev_detail', ev_day=eval_day, device=device_elem.device_id)}}">Device Detail: {{device_elem.device_id}}</a>
+		{% else %}
+		<a class="dropdown-item" href="{{url_for('dashb_dev_detail', ev_day=eval_day, device=device_elem.device_id)}}">Device Detail: {{device_elem.device_id}}</a>
+		{% endif %}
+		{% endfor %}
+	</div>
+</li>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row row-fluid">
+		<div class="col">
+			<br /><br />
+		</div>
+	</div>
+
+	{% for key in device_stat.trends_by_sub_entity %}
+	<!-- div class="row row-fluid">
+		<div class="col">
+			<div class="alert alert-primary flex-fill mt-3 mb-1 text-center">
+				Device Channel Detail (pro 5 Minuten): {{device}} / {{key}}
+			</div>
+		</div>
+	</div -->
+	<div class="row row-fluid">
+		<div class="col">
+			<div class="card mb-3">
+				<div class="card-body">
+					<div class="card-text">
+						<canvas id="statChannel{{device_stat.trends_by_sub_entity[key]['chartId']}}" width="500" height="100" aria-label="Input Probe Aggregates per Channel" role="img"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+<script type="text/javascript">
+	/**/
+	var chart_labels = [{% for lb in device_stat.labels %} {{ lb['separator'] }} "{{ lb['label'] }}" {% endfor %}];
+	{% for key in device_stat.trends_by_sub_entity %}
+	var chn_chart_{{device_stat.trends_by_sub_entity[key]['chartId']}} = new Chart(document.getElementById('statChannel{{device_stat.trends_by_sub_entity[key]['chartId']}}').getContext('2d'), {
+		type: 'line',
+		data: {
+			labels: chart_labels,
+			datasets: [
+				{% for ds in device_stat.trends_by_sub_entity[key]['dataSets'] %}
+				{ label: "{{ds['label']}}", data: [{{ds['data']}}], fill: false, borderColor: "{{ds['borderColor']}}" },
+				{% endfor %}
+			]
+		},
+		options: {
+			title: {
+				display: true,
+				fontSize: 14,
+				text: "Device Channel Detail (pro 5 Minuten): {{device}} / {{key}}"
+			}
+		}
+	});
+	{% endfor %}
+	/**/
+</script>
+
+{% endblock %}

@@ -28,46 +28,35 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="iot_statistics\model\stat_generator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="iot_statistics\model\stat_input_probe.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="iot_statistics\view\stat_view.py" />
     <Compile Include="runserver.py" />
     <Compile Include="iot_statistics\__init__.py" />
     <Compile Include="iot_statistics\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="iot_statistics\" />
+    <Folder Include="iot_statistics\model\" />
+    <Folder Include="iot_statistics\view\" />
     <Folder Include="iot_statistics\static\" />
     <Folder Include="iot_statistics\static\content\" />
     <Folder Include="iot_statistics\static\fonts\" />
+    <Folder Include="iot_statistics\static\css\" />
     <Folder Include="iot_statistics\static\scripts\" />
     <Folder Include="iot_statistics\templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="requirements.txt" />
-    <Content Include="iot_statistics\static\content\bootstrap.css" />
-    <Content Include="iot_statistics\static\content\bootstrap.min.css" />
-    <Content Include="iot_statistics\static\content\site.css" />
-    <Content Include="iot_statistics\static\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="iot_statistics\static\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="iot_statistics\static\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="iot_statistics\static\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="iot_statistics\static\scripts\bootstrap.js" />
-    <Content Include="iot_statistics\static\scripts\bootstrap.min.js" />
-    <Content Include="iot_statistics\static\scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="iot_statistics\static\scripts\jquery-1.10.2.js" />
-    <Content Include="iot_statistics\static\scripts\jquery-1.10.2.min.js" />
-    <Content Include="iot_statistics\static\scripts\jquery-1.10.2.min.map" />
-    <Content Include="iot_statistics\static\scripts\jquery.validate-vsdoc.js" />
-    <Content Include="iot_statistics\static\scripts\jquery.validate.js" />
-    <Content Include="iot_statistics\static\scripts\jquery.validate.min.js" />
-    <Content Include="iot_statistics\static\scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="iot_statistics\static\scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="iot_statistics\static\scripts\modernizr-2.6.2.js" />
-    <Content Include="iot_statistics\static\scripts\respond.js" />
-    <Content Include="iot_statistics\static\scripts\respond.min.js" />
-    <Content Include="iot_statistics\static\scripts\_references.js" />
-    <Content Include="iot_statistics\templates\about.html" />
-    <Content Include="iot_statistics\templates\contact.html" />
-    <Content Include="iot_statistics\templates\index.html" />
+    <Content Include="iot_statistics\static\css\iot_statistics.css" />
+    <Content Include="iot_statistics\templates\dashboard.html" />
+    <Content Include="iot_statistics\templates\dashboard_device.html" />
+    <Content Include="iot_statistics\templates\dashboard_device_detail.html" />
     <Content Include="iot_statistics\templates\layout.html" />
+    <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="webenv\">

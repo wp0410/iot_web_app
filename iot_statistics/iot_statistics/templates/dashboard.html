@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block navbar %}
+
+<li class="nav-item active mt-2 ml-3">
+	<form class="form-inline">
+		<span>
+			<a href="{{url_for('dashboard', ev_day=eval_day, ev_offset=-1)}}" class="btn btn-outline-dark" role="button">&lt;</a>
+			<a href="{{url_for('dashboard', ev_day=eval_day)}}" class="btn btn-outline-dark" role="button">{{eval_day}}</a>
+			<a href="{{url_for('dashboard', ev_day=eval_day, ev_offset=1)}}" class="btn btn-outline-dark" role="button">&gt;</a>
+		</span>
+	</form>
+</li>
+<li class="nav-item dropdown active mt-2 ml-3">
+	<a class="nav-link dropdown-toggle" href="#" id="hwDevProbe" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Device Probes
+	</a>
+	<div class="dropdown-menu" aria-labelledby="hwDevProbe">
+		<a class="dropdown-item" href="{{url_for('dashb_dev', ev_day=eval_day)}}">Tages&uuml;bersicht pro Device</a>
+		{% if device_list %}
+		<div class="dropdown-divider"></div>
+		{% endif %}
+
+		{% for device in device_list %}
+		<a class="dropdown-item" href="{{url_for('dashb_dev_detail', ev_day=eval_day, device=device.device_id)}}">Device Detail: {{device.device_id}}</a>
+		{% endfor %}
+	</div>
+</li>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row row-fluid">
+		<div class="col">
+			<br /><br />
+		</div>
+	</div>
+	<div class="row row-fluid">
+		<div class="col col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+			<!-- div class="alert alert-primary flex-fill mt-3 mb-1 text-center">
+				Hardware Device Probes: Tages&uuml;bersicht
+			</div -->
+			<div class="card mt-4">
+				<div class="card-body">
+					<div class="card-text">
+						<canvas id="statInputProbe1" width="200" height="100" aria-label="Input Probe Values per Hour" role="img"></canvas>
+					</div>
+					<!-- div class="mt-3">
+						<a href="{{url_for('dashb_dev', ev_day=eval_day)}}"><span>Tages&uuml;bersicht nach Hardware Device<i class="bi bi-caret-right-fill"></i></span></a>
+					</div -->
+				</div>
+			</div>
+		</div>
+		<div class="col col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
+			<!-- div class="alert alert-primary flex-fill mt-3 mb-1 text-center">
+				Sensor Measurements: Tages&uuml;bersicht
+			</div -->
+			<div class="card mt-4">
+				<div class="card-body">
+					<div class="card-text">
+						<canvas id="statSensorMsmt1" width="200" height="100" aria-label="Sensor Measurement Values per Hour" role="img"></canvas>
+					</div>
+					<!-- div class="mt-3">
+						<a href="{{url_for('dashb_sensor', ev_day=eval_day)}}"><span>Tages&uuml;bersicht nach Sensor<i class="bi bi-caret-right-fill"></i></span></a>
+					</div -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+<script type="text/javascript">
+	/**/
+	var chart_labels = [{% for lb in input_probe_stat.labels %} {{ lb['separator'] }} "{{ lb['label'] }}" {% endfor %}];
+	var data_min = [{{ input_probe_stat.minima }}];
+	var data_avg = [{{ input_probe_stat.averages }}];
+	var data_max = [{{ input_probe_stat.maxima }}];
+	var chart_data = {
+		labels: chart_labels,
+		datasets: [
+			{ label: "Minimum", data: data_min, fill: false, borderColor: 'blue' },
+			{ label: "Durchschnitt", data: data_avg, fill: false, borderColor: 'green' },
+			{ label: "Maximum", data: data_max, fill: false, borderColor: 'red' }]
+	};
+	var ctx = document.getElementById('statInputProbe1').getContext('2d');
+	var chart = new Chart(ctx, {
+		type: 'line',
+		data: chart_data,
+		options: {
+			title: {
+				display: true,
+				fontSize: 14,
+				text: "Device Probes: Tagesübersicht"
+			}
+		}
+	})
+	/**/
+</script>
+
+{% endblock %}

@@ -128,4 +128,3 @@ class IotStatisticsGenerator:
         with wp_repository.SQLiteRepository(self._contents_type, self._stat_db_path) as stat_repo:
             result = stat_repo.query(sql_stmt)
         return result
-

@@ -51,6 +51,8 @@
     <Folder Include="iot_statistics\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".pylintrc" />
+    <Content Include="iot_statistics\static\content\iot_logo.png" />
     <Content Include="iot_statistics\static\css\iot_statistics.css" />
     <Content Include="iot_statistics\templates\dashboard.html" />
     <Content Include="iot_statistics\templates\dashboard_device.html" />

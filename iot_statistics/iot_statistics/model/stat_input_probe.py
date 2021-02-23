@@ -340,4 +340,3 @@ class InputProbeStatistics:
         self.minimum = 0
         self.maximum = 0
         self.average = 0
-

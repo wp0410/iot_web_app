@@ -63,7 +63,7 @@ class IotStatisticsGenerator:
         stat_template = self._contents_type()
         sql_stmt = stat_template.entity_list(eval_date)
         with wp_repository.SQLiteRepository(self._contents_type, self._stat_db_path) as stat_repo:
-            result = stat_repo.query(sql_stmt)
+            result = stat_repo.execute_select(sql_stmt)
         return result
 
     def overall_trend(self, eval_target: str = 'value',
@@ -100,7 +100,7 @@ class IotStatisticsGenerator:
         else:
             sql_stmt = stat_template.trend_sub_entity(eval_date = eval_date, eval_target = eval_target, by_min = by_min)
         with wp_repository.SQLiteRepository(self._contents_type, self._stat_db_path) as stat_repo:
-            result = stat_repo.query(sql_stmt)
+            result = stat_repo.execute_select(sql_stmt)
         return result
 
     def sub_entity_values(self, entity_id: str, eval_target: str = 'value', eval_date: date = date.today(),
@@ -126,5 +126,5 @@ class IotStatisticsGenerator:
         sql_stmt = stat_template.trend_sub_entity(
             entity_id = entity_id, eval_date = eval_date, eval_target = eval_target, by_min = by_min)
         with wp_repository.SQLiteRepository(self._contents_type, self._stat_db_path) as stat_repo:
-            result = stat_repo.query(sql_stmt)
+            result = stat_repo.execute_select(sql_stmt)
         return result

@@ -339,3 +339,6 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /iot_statistics/webenv
+/iot_statistics/webdev
+/dist
+/iot_web_app.egg-info

@@ -1,0 +1,3 @@
+graft iot_statistics/static
+graft iot_statistics/templates
+global-exclude *.pyc *.sl3

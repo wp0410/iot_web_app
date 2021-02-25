@@ -342,3 +342,6 @@ healthchecksdb
 /iot_statistics/webdev
 /dist
 /iot_web_app.egg-info
+/iot_statistics/build/lib/iot_statistics
+/iot_statistics/dist
+/iot_statistics/iot_statistics.egg-info

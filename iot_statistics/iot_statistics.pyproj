@@ -8,8 +8,7 @@
     <ProjectHome>.</ProjectHome>
     <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <StartupFile>runserver.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>iot_statistics;iot_statistics\model;iot_statistics\view</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <LaunchProvider>Web launcher</LaunchProvider>
     <WebBrowserUrl>http://localhost</WebBrowserUrl>
@@ -34,10 +33,15 @@
     <Compile Include="iot_statistics\model\stat_input_probe.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="iot_statistics\model\__init__.py" />
     <Compile Include="iot_statistics\view\stat_view.py" />
+    <Compile Include="iot_statistics\view\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="iot_statistics\__init__.py" />
     <Compile Include="iot_statistics\views.py" />
+    <Compile Include="setup.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="iot_statistics\" />
@@ -58,6 +62,9 @@
     <Content Include="iot_statistics\templates\dashboard_device.html" />
     <Content Include="iot_statistics\templates\dashboard_device_detail.html" />
     <Content Include="iot_statistics\templates\layout.html" />
+    <Content Include="LICENSE" />
+    <Content Include="MANIFEST.in" />
+    <Content Include="README.md" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
